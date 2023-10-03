@@ -1,4 +1,7 @@
 <?php
+
+//Asistencia de alumnos
+
 // Datos ficticios para simular la información
 $alumnos = [
     "Juan Pérez" => [

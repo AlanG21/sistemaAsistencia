@@ -31,40 +31,28 @@ CREATE TABLE alumnos (
     FOREIGN KEY (clase_id) REFERENCES clases(clase_id)
 );
 
-
-
--- Crea la base de datos
-CREATE DATABASE sistema_asistencia;
-
--- Usa la base de datos
-USE sistema_asistencia;
-
--- Crea la tabla de alumnos
-CREATE TABLE alumnos (
-  id INT NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(255) NOT NULL,
-  apellidos VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  clase VARCHAR(255) NOT NULL,
-  tarjeta_rfid VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id)
+-- Creación de la tabla administradores
+CREATE TABLE administradores (
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
 
--- Crea la tabla de profesores
-CREATE TABLE profesores (
-  id INT NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(255) NOT NULL,
-  apellidos VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  clase VARCHAR(255) NOT NULL,
-  tarjeta_rfid VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id)
-);
 
--- Crea la restricción de clave externa entre las tablas
-ALTER TABLE alumnos
-ADD CONSTRAINT fk_alumnos_clase
-FOREIGN KEY (clase)
-REFERENCES profesores (clase);
+-- Agrega una columna 'rol' a la tabla 'profesores' para indicar el rol
+ALTER TABLE profesores ADD COLUMN rol VARCHAR(255) NOT NULL;
+
+-- Agrega una columna 'rol' a la tabla 'administradores' para indicar el rol
+ALTER TABLE administradores ADD COLUMN rol VARCHAR(255) NOT NULL;
+
+-- Agrega una columna 'rol' a la tabla 'alumnos' para indicar el rol
+ALTER TABLE alumnos ADD COLUMN rol VARCHAR(255) NOT NULL;
+
+
+INSERT INTO `profesores` (`profesor_id`, `nombre`, `apellido`, `email`, `tarjeta_rfid`, `password`) VALUES (NULL, 'Luis', 'Loredo', 'luis@example.com', '', 'admin123');
+
+INSERT INTO `administradores` (`admin_id`, `nombre`, `apellido`, `email`, `password`) VALUES (NULL, 'administrador_loredo', 'adminAp', 'admin@example.com', 'admin123');
+
+INSERT INTO `alumnos` (`alumno_id`, `nombre`, `apellido`, `email`, `tarjeta_rfid`, `password`, `clase_id`, `rol`) VALUES (NULL, 'Paullette', 'Esparza', 'paullette', '', 'paullette123', NULL, 'alumno');
