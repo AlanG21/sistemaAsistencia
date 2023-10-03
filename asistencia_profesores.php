@@ -1,9 +1,9 @@
 <?php
 
-//Dashboard del profesor
+//Asistencia de alumnos
 
 // Datos ficticios para simular la información
-$profesores = [
+$alumnos = [
     "Juan Pérez" => [
         "asistencias" => [
             ["fecha" => "2023-10-01", "hora" => "10:00 AM"],
@@ -49,15 +49,12 @@ $profesores = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard del Profesor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        /* Estilos previamente definidos */
-    </style>
 </head>
 <body>
-
+    <!-- Menu -->
+<?php include 'menu.php'; ?>
 <div class="container mt-5">
     <h2>Dashboard del Profesor</h2>
     <h3>Lista de Alumnos</h3>

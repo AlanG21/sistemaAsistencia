@@ -1,4 +1,3 @@
-<!-- dashboard_administrador.php -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,14 +7,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Panel de Control del Administrador</h1>
     <!-- Incluye el menú -->
     <?php include 'menu.php'; ?>
 
     <div class="container mt-5">
         <h2>Lista de Profesores</h2>
-        <table class="table table-bordered">
-            <thead>
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
                 <tr>
                     <th>Profesor</th>
                     <th>Asignaturas</th>
@@ -52,8 +50,8 @@
         </table>
 
         <h2>Lista de Alumnos</h2>
-        <table class="table table-bordered">
-            <thead>
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
                 <tr>
                     <th>Alumno</th>
                     <th>Clase</th>
