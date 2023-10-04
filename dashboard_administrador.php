@@ -5,12 +5,19 @@
     <title>Panel de Control del Administrador</title>
     <!-- Incluye Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Estilo personalizado para añadir un margen superior adicional -->
+    <style>
+        .custom-margin {
+            margin-top: 6rem; /* O el valor que desees */
+        }
+    </style>
 </head>
 <body>
     <!-- Incluye el menú -->
     <?php include 'menu.php'; ?>
 
-    <div class="container mt-5">
+    <div class="container custom-margin">
         <h2>Lista de Profesores</h2>
         <table class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">

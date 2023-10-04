@@ -55,4 +55,4 @@ INSERT INTO `profesores` (`profesor_id`, `nombre`, `apellido`, `email`, `tarjeta
 
 INSERT INTO `administradores` (`admin_id`, `nombre`, `apellido`, `email`, `password`) VALUES (NULL, 'administrador_loredo', 'adminAp', 'admin@example.com', 'admin123');
 
-INSERT INTO `alumnos` (`alumno_id`, `nombre`, `apellido`, `email`, `tarjeta_rfid`, `password`, `clase_id`, `rol`) VALUES (NULL, 'Paullette', 'Esparza', 'paullette', '', 'paullette123', NULL, 'alumno');
+INSERT INTO `alumnos` (`alumno_id`, `nombre`, `apellido`, `email`, `tarjeta_rfid`, `password`, `clase_id`, `rol`) VALUES (NULL, 'Paullette', 'Esparza', 'polet@example.com' 'paullette', 'paullette123', NULL, 'alumno');

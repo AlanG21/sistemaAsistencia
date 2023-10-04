@@ -24,6 +24,10 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="asistencia_alumnos.php">Asistencia de Alumnos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="logout.php">Cerrar sesión</a>
+                </li>
+
             </ul>
         </div>
     </div>

@@ -57,7 +57,14 @@ $alumnos = [
     </style>
 </head>
 <body>
-
+<div class="container mt-5">
+    <!-- Botón de Cerrar Sesión -->
+    <a href="logout.php" class="btn btn-danger mb-3">Cerrar Sesión</a>
+    
+    <h2>Dashboard del Profesor</h2>
+    
+    <!-- ... Resto de tu código ... -->
+</div>
 <div class="container mt-5">
     <h2>Dashboard del Profesor</h2>
     <h3>Lista de Alumnos</h3>
