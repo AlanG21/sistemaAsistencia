@@ -24,17 +24,30 @@
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
-            <div class="form-group">
-                <label for="tarjeta_rfid">Tarjeta RFID</label>
-                <input type="text" class="form-control" id="tarjeta_rfid" name="tarjeta_rfid" required>
-            </div>
+
             <div class="form-group">
                 <label for="password">Contraseña</label>
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
-    </div>
+        </div>
+            
+        <div class="form-group">
+    <label for="tarjeta_rfid">Selecciona una Tarjeta RFID:</label>
+    <select name="tarjeta_rfid" id="tarjeta_rfid" class="form-control">
+        <option value="">Selecciona una tarjeta RFID</option>
+        <?php
+        // Obtén las tarjetas RFID disponibles desde tu base de datos o datos ficticios
+        $tarjetas_disponibles = obtenerTarjetasDisponibles(); // Reemplaza esto con tu función real
+        foreach ($tarjetas_disponibles as $tarjeta) {
+            echo '<option value="' . $tarjeta['tarjeta_id'] . '">' . $tarjeta['numero_tarjeta'] . '</option>';
+        }
+        ?>
+    </select>
+</div>
+
+            </form>
+
 
     <!-- Incluye Bootstrap JS y jQuery (opcional, para características interactivas) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
