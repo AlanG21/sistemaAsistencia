@@ -7,7 +7,6 @@ CREATE TABLE profesores (
     nombre VARCHAR(255) NOT NULL,
     apellido VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    tarjeta_rfid VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL  -- Nueva columna para la contraseña
 );
 
@@ -25,7 +24,6 @@ CREATE TABLE alumnos (
     nombre VARCHAR(255) NOT NULL,
     apellido VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    tarjeta_rfid VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,  -- Nueva columna para la contraseña
     clase_id INT,
     FOREIGN KEY (clase_id) REFERENCES clases(clase_id)
@@ -40,19 +38,20 @@ CREATE TABLE administradores (
     password VARCHAR(255) NOT NULL
 );
 
+-- Creación de la tabla tarjetas_rfid
+CREATE TABLE tarjetas_rfid (
+    tarjeta_id INT AUTO_INCREMENT PRIMARY KEY,
+    numero_tarjeta VARCHAR(255) UNIQUE NOT NULL
+);
+-- Agregar una columna 'tarjeta_rfid_id' a la tabla 'profesores' para relacionar con la tabla 'tarjetas_rfid'
+ALTER TABLE profesores ADD COLUMN tarjeta_rfid_id INT;
 
--- Agrega una columna 'rol' a la tabla 'profesores' para indicar el rol
-ALTER TABLE profesores ADD COLUMN rol VARCHAR(255) NOT NULL;
+-- Establecer la relación con la tabla 'tarjetas_rfid'
+ALTER TABLE profesores ADD FOREIGN KEY (tarjeta_rfid_id) REFERENCES tarjetas_rfid(tarjeta_id);
 
--- Agrega una columna 'rol' a la tabla 'administradores' para indicar el rol
-ALTER TABLE administradores ADD COLUMN rol VARCHAR(255) NOT NULL;
+-- Agregar una columna 'tarjeta_rfid_id' a la tabla 'alumnos' para relacionar con la tabla 'tarjetas_rfid'
+ALTER TABLE alumnos ADD COLUMN tarjeta_rfid_id INT;
 
--- Agrega una columna 'rol' a la tabla 'alumnos' para indicar el rol
-ALTER TABLE alumnos ADD COLUMN rol VARCHAR(255) NOT NULL;
-
-
-INSERT INTO `profesores` (`profesor_id`, `nombre`, `apellido`, `email`, `tarjeta_rfid`, `password`) VALUES (NULL, 'Luis', 'Loredo', 'luis@example.com', '', 'admin123');
-
-INSERT INTO `administradores` (`admin_id`, `nombre`, `apellido`, `email`, `password`) VALUES (NULL, 'administrador_loredo', 'adminAp', 'admin@example.com', 'admin123');
-
-INSERT INTO `alumnos` (`alumno_id`, `nombre`, `apellido`, `email`, `tarjeta_rfid`, `password`, `clase_id`, `rol`) VALUES (NULL, 'Paullette', 'Esparza', 'polet@example.com' 'paullette', 'paullette123', NULL, 'alumno');
+-- Establecer la relación con la tabla 'tarjetas_rfid'
+ALTER TABLE alumnos ADD FOREIGN KEY (tarjeta_rfid_id) REFERENCES tarjetas_rfid(tarjeta_id);
+INSERT INTO administradores (nombre, apellido, email, password) VALUES ('Ejemplo', 'Administrador', 'admin@example.com', 'contrasena123');
