@@ -1,0 +1,84 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+    exit;
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "rfid";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Fetch todas las asistencias del mes actual 2023
+    $stmtAsistencias = $conn->prepare("SELECT DATE(fecha) as fecha, COUNT(DISTINCT uid) as total FROM asistencias WHERE MONTH(fecha) = 10 AND YEAR(fecha) = 2023 GROUP BY DATE(fecha)");
+    $stmtAsistencias->execute();
+    $asistencias = $stmtAsistencias->fetchAll(PDO::FETCH_ASSOC);
+
+} catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+$conn = null;
+
+$fechas = [];
+$totales = [];
+foreach ($asistencias as $asistencia) {
+    $fechas[] = $asistencia['fecha'];
+    $totales[] = $asistencia['total'];
+}
+?>
+
+<?php include('nav_profesor.php'); ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfica de Asistencias</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4">Gráfica de Asistencias</h1>
+    <canvas id="asistenciasChart" width="400" height="200"></canvas>
+</div>
+
+<script>
+    var ctx = document.getElementById('asistenciasChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode($fechas); ?>,
+            datasets: [{
+                label: 'Asistencias por día',
+                data: <?php echo json_encode($totales); ?>,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

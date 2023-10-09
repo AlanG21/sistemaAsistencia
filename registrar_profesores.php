@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "rfid_db";
+$dbname = "rfid";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);

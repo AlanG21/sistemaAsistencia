@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "rfid_db";
+$dbname = "rfid";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);

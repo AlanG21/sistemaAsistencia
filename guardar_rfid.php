@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "rfid_db";
+$dbname = "rfid";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -17,26 +17,39 @@ if ($conn->connect_error) {
 if(isset($_POST['uid'])) {
     $uid = $_POST['uid'];
 
-    $stmt = $conn->prepare("INSERT INTO asistencias (uid, fecha) VALUES (?, NOW())");
-    $stmt->bind_param("s", $uid);
+    // Verificar si el UID ya existe en la base de datos
+    $checkStmt = $conn->prepare("SELECT uid FROM tarjetas WHERE uid = ?");
+    $checkStmt->bind_param("s", $uid);
+    $checkStmt->execute();
+    $checkStmt->store_result();
 
-    if ($stmt->execute()) {
-        echo "UID recibido y almacenado: " . $uid . "<br>";
+    if ($checkStmt->num_rows == 0) {
+        $checkStmt->close();
+
+        $stmt = $conn->prepare("INSERT INTO tarjetas (uid, fecha_registro) VALUES (?, NOW())");
+        $stmt->bind_param("s", $uid);
+
+        if ($stmt->execute()) {
+            echo "UID recibido y almacenado: " . $uid . "<br>";
+        } else {
+            echo "Error al almacenar el UID: " . $stmt->error . "<br>";
+        }
+
+        $stmt->close();
     } else {
-        echo "Error al almacenar el UID: " . $stmt->error . "<br>";
+        echo "El UID ya existe en la base de datos.<br>";
+        $checkStmt->close();
     }
-
-    $stmt->close();
 }
 
 // Consultar y mostrar todos los UIDs almacenados
-$sql = "SELECT uid, fecha FROM asistencias ORDER BY fecha DESC";  // Cambié 'registros' a 'asistencias'
+$sql = "SELECT uid, fecha_registro FROM tarjetas ORDER BY fecha_registro DESC";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     echo "<h2>UIDs almacenados:</h2>";
     while($row = $result->fetch_assoc()) {
-        echo "UID: " . $row["uid"] . " - Fecha: " . $row["fecha"] . "<br>";
+        echo "UID: " . $row["uid"] . " - Fecha: " . $row["fecha_registro"] . "<br>";
     }
 } else {
     echo "No hay UIDs almacenados.";

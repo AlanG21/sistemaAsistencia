@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "rfid_db";
+$dbname = "rfid";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -60,7 +60,7 @@ if ($result->num_rows > 0) {
 
 ?>
 
-<?php include('nav.php'); ?>
+<?php include('nav_admin.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es">
